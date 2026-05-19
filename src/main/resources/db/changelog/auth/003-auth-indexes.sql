@@ -16,26 +16,6 @@ create index ix_user_sessions_expires_at
 create index ix_user_sessions_user_id_revoked_at
     on user_sessions (user_id, revoked_at);
 
---changeset 003-auth-indexes:user-auth-tokens-user-id-purpose
-create index ix_user_auth_tokens_user_id_purpose
-    on user_auth_tokens (user_id, purpose);
-
---changeset 003-auth-indexes:user-auth-tokens-expires-at
-create index ix_user_auth_tokens_expires_at
-    on user_auth_tokens (expires_at);
-
---changeset 003-auth-indexes:user-backup-codes-user-id
-create index ix_user_backup_codes_user_id
-    on user_backup_codes (user_id);
-
---changeset 003-auth-indexes:user-passkeys-user-id
-create index ix_user_passkeys_user_id
-    on user_passkeys (user_id);
-
---changeset 003-auth-indexes:user-passkeys-credential-id
-create unique index ux_user_passkeys_credential_id
-    on user_passkeys (credential_id);
-
 --changeset 003-auth-core:idx-pending-registrations-expires-at
 create index idx_pending_registrations_expires_at
     on pending_registrations (expires_at);

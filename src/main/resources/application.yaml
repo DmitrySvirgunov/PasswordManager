@@ -1,0 +1,68 @@
+spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:./_backend_link/.env[.properties]
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  liquibase:
+    enabled: ${SPRING_LIQUIBASE_ENABLED:true}
+
+    change-log: db/changelog/changelog-master.xml
+
+server:
+  port: ${SERVER_PORT:8080}
+
+security:
+  hashing:
+    hmac-secret-base64: ${SECURITY_HASHING_HMAC_SECRET_BASE64}
+  auth-hash:
+    algorithm: ${SECURITY_AUTH_HASH_ALGORITHM:argon2id}
+    iterations: ${SECURITY_AUTH_HASH_ITERATIONS:3}
+    memory-kb: ${SECURITY_AUTH_HASH_MEMORY_KB:65536}
+    parallelism: ${SECURITY_AUTH_HASH_PARALLELISM:1}
+    hash-length-bytes: ${SECURITY_AUTH_HASH_HASH_LENGTH_BYTES:32}
+    salt-length-bytes: ${SECURITY_AUTH_HASH_SALT_LENGTH_BYTES:16}
+
+app:
+  mail:
+    from: ${APP_MAIL_FROM:no-reply@example.test}
+    verify-base-url: ${APP_MAIL_VERIFY_BASE_URL:https://localhost:5173/verify-email}
+  vault:
+    blob-cleanup:
+      enabled: ${APP_VAULT_BLOB_CLEANUP_ENABLED:true}
+      initial-delay-ms: ${APP_VAULT_BLOB_CLEANUP_INITIAL_DELAY_MS:300000}
+      interval-ms: ${APP_VAULT_BLOB_CLEANUP_INTERVAL_MS:600000}
+      pending-max-age: ${APP_VAULT_BLOB_CLEANUP_PENDING_MAX_AGE:PT1H}
+      ready-max-age: ${APP_VAULT_BLOB_CLEANUP_READY_MAX_AGE:PT15M}
+      batch-size: ${APP_VAULT_BLOB_CLEANUP_BATCH_SIZE:100}
+  security:
+    jwt:
+      issuer: ${APP_SECURITY_JWT_ISSUER:https://password-manager.local}
+      secret-base64: ${APP_SECURITY_JWT_SECRET_BASE64}
+      access-ttl-minutes: 15
+  audit:
+    signing:
+      key-id: ${APP_AUDIT_SIGNING_KEY_ID:audit-ed25519-v1}
+      private-key-pkcs8-base64: ${APP_AUDIT_SIGNING_PRIVATE_KEY_PKCS8_BASE64}
+      public-key-x509-base64: ${APP_AUDIT_SIGNING_PUBLIC_KEY_X509_BASE64}
+    anchor-store:
+      enabled: ${APP_AUDIT_ANCHOR_STORE_ENABLED:false}
+      source-instance-id: ${APP_AUDIT_ANCHOR_STORE_SOURCE_INSTANCE_ID:default}
+      url: ${APP_AUDIT_ANCHOR_STORE_URL:}
+      username: ${APP_AUDIT_ANCHOR_STORE_USERNAME:}
+      password: ${APP_AUDIT_ANCHOR_STORE_PASSWORD:}
+      driver-class-name: ${APP_AUDIT_ANCHOR_STORE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+      auto-init-schema: ${APP_AUDIT_ANCHOR_STORE_AUTO_INIT_SCHEMA:true}
+      initial-delay-ms: ${APP_AUDIT_ANCHOR_STORE_INITIAL_DELAY_MS:15000}
+      interval-ms: ${APP_AUDIT_ANCHOR_STORE_INTERVAL_MS:30000}
+      batch-size: ${APP_AUDIT_ANCHOR_STORE_BATCH_SIZE:100}

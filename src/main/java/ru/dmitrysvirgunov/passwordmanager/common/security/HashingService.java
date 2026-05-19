@@ -78,7 +78,7 @@ public class HashingService {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("email must not be blank");
         }
-        return hmacSha256(email);
+        return hmacSha256(normalizeEmail(email));
     }
 
     public boolean constantTimeEquals(byte[] left, byte[] right) {
@@ -118,5 +118,9 @@ public class HashingService {
             throw new IllegalArgumentException(fieldName + " must not be blank");
         }
         return value.trim();
+    }
+
+    private String normalizeEmail(String email) {
+        return email.trim().toLowerCase();
     }
 }

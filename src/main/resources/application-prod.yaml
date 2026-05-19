@@ -1,0 +1,45 @@
+app:
+  registration:
+    mode: EMAIL_VERIFICATION
+  anti-abuse:
+    enabled: ${APP_ANTI_ABUSE_ENABLED:true}
+    email-limit: ${APP_ANTI_ABUSE_EMAIL_LIMIT:3}
+    email-window-minutes: ${APP_ANTI_ABUSE_EMAIL_WINDOW_MINUTES:30}
+    ip-limit: ${APP_ANTI_ABUSE_IP_LIMIT:10}
+    ip-window-minutes: ${APP_ANTI_ABUSE_IP_WINDOW_MINUTES:15}
+    login-email-limit: ${APP_ANTI_ABUSE_LOGIN_EMAIL_LIMIT:8}
+    login-email-window-minutes: ${APP_ANTI_ABUSE_LOGIN_EMAIL_WINDOW_MINUTES:15}
+    login-ip-limit: ${APP_ANTI_ABUSE_LOGIN_IP_LIMIT:25}
+    login-ip-window-minutes: ${APP_ANTI_ABUSE_LOGIN_IP_WINDOW_MINUTES:15}
+    prelogin-email-limit: ${APP_ANTI_ABUSE_PRELOGIN_EMAIL_LIMIT:30}
+    prelogin-ip-limit: ${APP_ANTI_ABUSE_PRELOGIN_IP_LIMIT:120}
+    prelogin-window-minutes: ${APP_ANTI_ABUSE_PRELOGIN_WINDOW_MINUTES:15}
+    verify-email-ip-limit: ${APP_ANTI_ABUSE_VERIFY_EMAIL_IP_LIMIT:20}
+    verify-email-window-minutes: ${APP_ANTI_ABUSE_VERIFY_EMAIL_WINDOW_MINUTES:15}
+    invite-lookup-actor-limit: ${APP_ANTI_ABUSE_INVITE_LOOKUP_ACTOR_LIMIT:60}
+    invite-lookup-vault-limit: ${APP_ANTI_ABUSE_INVITE_LOOKUP_VAULT_LIMIT:100}
+    invite-lookup-target-limit: ${APP_ANTI_ABUSE_INVITE_LOOKUP_TARGET_LIMIT:10}
+    invite-lookup-window-minutes: ${APP_ANTI_ABUSE_INVITE_LOOKUP_WINDOW_MINUTES:15}
+    invite-create-actor-limit: ${APP_ANTI_ABUSE_INVITE_CREATE_ACTOR_LIMIT:12}
+    invite-create-vault-limit: ${APP_ANTI_ABUSE_INVITE_CREATE_VAULT_LIMIT:20}
+    invite-create-target-limit: ${APP_ANTI_ABUSE_INVITE_CREATE_TARGET_LIMIT:3}
+    invite-create-window-minutes: ${APP_ANTI_ABUSE_INVITE_CREATE_WINDOW_MINUTES:60}
+  mail:
+    mode: SMTP
+
+spring:
+  mail: # Временные параметры, потом заменим песочницу
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 4c701cb6fab27f
+    password: dddcc105592e43
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000

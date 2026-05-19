@@ -30,12 +30,24 @@ create table user_auth (
 --changeset 001-auth-core:user-key-material
 create table user_key_material (
     user_id uuid primary key,
-    public_key bytea not null,
-    encrypted_private_key bytea not null,
-    key_params jsonb not null,
-    key_version int not null default 1,
+
+    wrapped_account_root_key bytea not null,
+    account_root_wrap_params jsonb not null,
+    account_root_version int not null default 1,
+
+    public_encryption_key bytea not null,
+    encrypted_private_encryption_key bytea not null,
+    encryption_key_params jsonb not null,
+    encryption_key_version int not null default 1,
+
+    public_signing_key bytea not null,
+    encrypted_private_signing_key bytea not null,
+    signing_key_params jsonb not null,
+    signing_key_version int not null default 1,
+
     created_at timestamptz not null default now(),
     rotated_at timestamptz null,
+
     constraint fk_user_key_material_user
         foreign key (user_id) references users(user_id) on delete cascade
 );
@@ -44,13 +56,26 @@ create table user_key_material (
 create table pending_registrations (
     pending_registration_id uuid primary key,
     email text not null,
+
     auth_hash bytea not null,
     auth_salt bytea not null,
     auth_hash_params jsonb not null,
     client_kdf_params jsonb not null,
-    public_key bytea not null,
-    encrypted_private_key bytea not null,
-    key_params jsonb not null,
+
+    wrapped_account_root_key bytea not null,
+    account_root_wrap_params jsonb not null,
+    account_root_version int not null default 1,
+
+    public_encryption_key bytea not null,
+    encrypted_private_encryption_key bytea not null,
+    encryption_key_params jsonb not null,
+    encryption_key_version int not null default 1,
+
+    public_signing_key bytea not null,
+    encrypted_private_signing_key bytea not null,
+    signing_key_params jsonb not null,
+    signing_key_version int not null default 1,
+
     token_hash bytea not null,
     request_ip_hash bytea null,
     user_agent_hash bytea null,
@@ -85,27 +110,6 @@ create table user_sessions (
         foreign key (user_id) references users(user_id) on delete cascade,
     constraint uq_user_sessions_refresh_token_hash
         unique (refresh_token_hash)
-);
-
---changeset 001-auth-core:user-auth-tokens
-create table user_auth_tokens (
-    token_id uuid primary key,
-    user_id uuid not null,
-    purpose text not null,
-    token_hash bytea not null,
-    expires_at timestamptz not null,
-    used_at timestamptz null,
-    created_at timestamptz not null default now(),
-    constraint fk_user_auth_tokens_user
-        foreign key (user_id) references users(user_id) on delete cascade,
-    constraint chk_user_auth_tokens_purpose
-        check (purpose in (
-            'PASSWORD_RESET',
-            'MFA_RESET',
-            'NEW_DEVICE_CONFIRMATION'
-        )),
-    constraint uq_user_auth_tokens_token_hash
-        unique (token_hash)
 );
 
 --changeset 001-auth-core:auth-attempts

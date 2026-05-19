@@ -94,14 +94,14 @@ public class RegistrationAntiAbuseService {
 
     private String buildMessage(AuthAttemptReasonCode reasonCode) {
         if (reasonCode == AuthAttemptReasonCode.EMAIL_AND_IP_RATE_LIMIT) {
-            return "Too many registration attempts for this email and IP";
+            return "Слишком много попыток регистрации для этого email и IP. Попробуйте позже.";
         }
         if (reasonCode == AuthAttemptReasonCode.EMAIL_RATE_LIMIT) {
-            return "Too many registration attempts for this email";
+            return "Слишком много попыток регистрации для этого email. Попробуйте позже.";
         }
         if (reasonCode == AuthAttemptReasonCode.IP_RATE_LIMIT) {
-            return "Too many registration attempts from this IP";
+            return "Слишком много попыток регистрации с этого IP. Попробуйте позже.";
         }
-        return "Too many registration attempts";
+        return "Слишком много попыток регистрации. Попробуйте позже.";
     }
 }

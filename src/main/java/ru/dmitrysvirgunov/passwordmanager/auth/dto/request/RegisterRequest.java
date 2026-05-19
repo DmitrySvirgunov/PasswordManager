@@ -1,7 +1,10 @@
 package ru.dmitrysvirgunov.passwordmanager.auth.dto.request;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record RegisterRequest(
 
@@ -18,13 +21,30 @@ public record RegisterRequest(
         KdfParamsRequest clientKdfParams,
 
         @NotBlank
-        String publicKeyBase64,
-
-        @NotBlank
-        String encryptedPrivateKeyBase64,
+        String wrappedAccountRootKeyBase64,
 
         @NotNull
         @Valid
-        KeyParamsRequest keyParams
+        AeadParamsRequest accountRootWrapParams,
 
-) {}
+        @NotBlank
+        String publicEncryptionKeyBase64,
+
+        @NotBlank
+        String encryptedPrivateEncryptionKeyBase64,
+
+        @NotNull
+        @Valid
+        AsymmetricKeyParamsRequest encryptionKeyParams,
+
+        @NotBlank
+        String publicSigningKeyBase64,
+
+        @NotBlank
+        String encryptedPrivateSigningKeyBase64,
+
+        @NotNull
+        @Valid
+        AsymmetricKeyParamsRequest signingKeyParams
+) {
+}

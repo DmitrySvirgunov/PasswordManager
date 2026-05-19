@@ -7,7 +7,20 @@
            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="auth/001-auth-core.sql" relativeToChangelogFile="true"/>
-    <include file="auth/002-auth-mfa.sql" relativeToChangelogFile="true"/>
     <include file="auth/003-auth-indexes.sql" relativeToChangelogFile="true"/>
+    <include file="auth/004-auth-login-anti-abuse.sql" relativeToChangelogFile="true"/>
+    <include file="auth/005-auth-prelogin-verify-anti-abuse.sql" relativeToChangelogFile="true"/>
+    <include file="auth/006-auth-deleted-email-reuse.sql" relativeToChangelogFile="true"/>
+    <include file="auth/007-auth-user-key-rotation.sql" relativeToChangelogFile="true"/>
+    <include file="vault/004-vault-core.sql" relativeToChangelogFile="true"/>
+    <include file="vault/005-vault-indexes.sql" relativeToChangelogFile="true"/>
+    <include file="vault/006-vault-blobs.sql" relativeToChangelogFile="true"/>
+    <include file="vault/007-vault-blob-indexes.sql" relativeToChangelogFile="true"/>
+    <include file="vault/008-vault-blob-retention-indexes.sql" relativeToChangelogFile="true"/>
+    <include file="vault/009-sync-targets.sql" relativeToChangelogFile="true"/>
+    <include file="vault/010-audit-integrity.sql" relativeToChangelogFile="true"/>
+    <include file="vault/011-vault-sharing-anti-abuse.sql" relativeToChangelogFile="true"/>
+    <include file="vault/012-vault-delete-tombstone.sql" relativeToChangelogFile="true"/>
+    <include file="vault/013-vault-object-signature-format-v2.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

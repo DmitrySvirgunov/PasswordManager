@@ -8,6 +8,23 @@ public record AntiAbuseProperties(
         int emailLimit,
         long emailWindowMinutes,
         int ipLimit,
-        long ipWindowMinutes
+        long ipWindowMinutes,
+        int loginEmailLimit,
+        long loginEmailWindowMinutes,
+        int loginIpLimit,
+        long loginIpWindowMinutes,
+        int preloginEmailLimit,
+        int preloginIpLimit,
+        long preloginWindowMinutes,
+        int verifyEmailIpLimit,
+        long verifyEmailWindowMinutes,
+        int inviteLookupActorLimit,
+        int inviteLookupVaultLimit,
+        int inviteLookupTargetLimit,
+        long inviteLookupWindowMinutes,
+        int inviteCreateActorLimit,
+        int inviteCreateVaultLimit,
+        int inviteCreateTargetLimit,
+        long inviteCreateWindowMinutes
 ) {
 }

@@ -1,15 +1,20 @@
 package ru.dmitrysvirgunov.passwordmanager.common.web;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import ru.dmitrysvirgunov.passwordmanager.common.exception.*;
 
+import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -97,6 +102,19 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler({
+            ConstraintViolationException.class,
+            HandlerMethodValidationException.class,
+            MissingRequestHeaderException.class
+    })
+    public ProblemDetail handleRequestValidation(Exception ex) {
+        return problem(
+                HttpStatus.BAD_REQUEST,
+                "Validation failed",
+                ex.getMessage()
+        );
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ProblemDetail handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         return problem(
@@ -126,9 +144,25 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(ConflictException.class)
+    public ProblemDetail handleConflict(ConflictException ex, HttpServletRequest request) {
+        return problem(
+                HttpStatus.CONFLICT,
+                "Conflict",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
     private ProblemDetail problem(HttpStatus status, String title, String detail) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, detail);
         problem.setTitle(title);
+        return problem;
+    }
+
+    private ProblemDetail problem(HttpStatus status, String title, String detail, String instance) {
+        ProblemDetail problem = problem(status, title, detail);
+        problem.setInstance(URI.create(instance));
         return problem;
     }
 }

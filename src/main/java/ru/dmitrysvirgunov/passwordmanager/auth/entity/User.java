@@ -20,7 +20,7 @@ public class User {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)

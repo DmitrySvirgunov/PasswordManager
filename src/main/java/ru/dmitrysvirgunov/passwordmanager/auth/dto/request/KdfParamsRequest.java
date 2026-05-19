@@ -25,5 +25,4 @@ public record KdfParamsRequest(
         @Min(1)
         @Max(32)
         Integer parallelism
-
 ) {}

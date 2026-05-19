@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+src/main/resources/application.yaml
+src/main/resources/application-dev.yaml
+src/main/resources/application-prod.yaml
+src/main/resources/application-staging.yaml
+src/main/resources/application-test.yaml
+src/test/
+.env
+.env.*
+!.env.example
